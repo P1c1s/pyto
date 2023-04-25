@@ -1,56 +1,46 @@
 from colors import * #import all from colors.py module
 import os
 import sys
-if os.path.exists("functions.py"): 
-    import functions 
-if os.path.exists("bashrc.py"): 
-    import bashrc 
+
+#The split method return an array with the head and the tail of the path
+path= os.path.split(os.path.realpath(__file__))[0]
+file_name = os.path.split(os.path.realpath(__file__))[1]
+
+
+if os.path.exists(path+"/modules/bashrc.py"): 
+    from modules import bashrc 
     enabled_modules=["bashrc"]
-if os.path.exists("docker.py"):
-    import docker
+if os.path.exists(path+"/modules/docker.py"):
+    from modules import docker
     enabled_modules+=["docker"]
-if os.path.exists("git.py"):
-    import git
+if os.path.exists(path+"/modules/git.py"):
+    from modules import git
     enabled_modules+=["git"]
 
-#Completed list of modules
-co=["apt", "bashrc","docker","git"]
+#List of available modules
+available_modules=["apt", "bashrc","docker","git"]
 
-#List function manager
+#Manager Function 
+def help():
+    print("[cli, modules, help, version]")
+    print("[system, users, network, filesystem, packet]")
+    print("[docker, baschrc]")
 def show_modules():
     print("MODULES")
-    for module in co:
+    for module in available_modules:
       if module in enabled_modules:
           print(GREENBOLD, "[+]",module)
       else:
           print(REDBOLD, "[-]", module)
-
 def show_version():
     print("v0.1")
-
-def a():
-    print("s")
 
 def funzione1(argn, argw):
     if len(sys.argv) > argn: #compare the lenght of array with the number of input!!!
         if sys.argv[argn] == argw:
           return True
-    
 
-
-
-def funzione():
-   #get the name of file from the path e.g. path="/home/user/script.py" return script.py
-    app=sys.argv[0].split("/")
-    file_name = app[len(sys.argv[0].split("/"))-1]
-    if len(sys.argv) > 1:
-        if file_name == "main.py" and sys.argv[1] == "docker":
-            docker.show()
-        elif file_name == "main.py" and sys.argv[1] == "git":
-            git.show()
-        elif file_name == "main.py" and sys.argv[1] == "arg1":
-            git.show()
-
+#Commands Function  
 def user_commands():
     print(REDBOLD, "Users")
     print(WHITE, "finger <user>", WHITE, " - ")
@@ -59,7 +49,6 @@ def user_commands():
     print(WHITEBOLD, "who", WHITE, "-")
     print(WHITEBOLD, "whoami", WHITE, " - ")
     print(WHITEBOLD, "rwho", WHITE, "-")
-
 def network_commands():
     print(REDBOLD, "Network")
     print(WHITEBOLD, "host", WHITE, " - ")
@@ -67,8 +56,7 @@ def network_commands():
     print(WHITEBOLD, "netstat -pnltu", WHITE, "- Listening port")
     print(WHITEBOLD, "nmap <host>", WHITE, " - ")
     print(WHITEBOLD, "ping <host>", WHITE, "- ")
-    print(WHITEBOLD, "whois <host>", WHITE, "- ") 
-   
+    print(WHITEBOLD, "whois <host>", WHITE, "- ")   
 def filesystem_commands():
     print(REDBOLD, "File System")
     print(WHITEBOLD, "cat", WHITE, " - ")
@@ -79,8 +67,6 @@ def filesystem_commands():
     print(WHITEBOLD, "nano", WHITE, " - ")
     print(WHITEBOLD, "pwd", WHITE, " - ")
     print(WHITEBOLD, "rm", WHITE, " - ")
-
-
 def system_commands():
     print(REDBOLD, "System")
     print(WHITEBOLD, "hostaname - Show or set the system's host name ")

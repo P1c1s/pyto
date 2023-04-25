@@ -3,24 +3,18 @@
 import os
 import sys
 
-#DA RIVEDERE
-app = os.path.realpath(__file__)
-path = ""
-app=sys.argv[0].split("/")
-file_name = app[len(sys.argv[0].split("/"))-1]
+#The split method return an array with the head and the tail of the path
+path= os.path.split(os.path.realpath(__file__))[0]
+file_name = os.path.split(os.path.realpath(__file__))[1]
 
 #import modules
-if os.path.exists("functions.py"): 
+if os.path.exists(path+"/functions.py"): 
     from functions import *
 
-from functions import *
-# for i in arr:
-#     print("", i)
 
-
-#print("[cli, modules, version]")
-#print("[system, users, network, filesystem, packet]")
-
+#Call Manager Function 
+if funzione1(1,"help"):
+   help()
 if funzione1(1,"modules"):
    show_modules()
 if funzione1(1,"version"):
@@ -74,9 +68,7 @@ if funzione1(1, "cli"):
     while command!="exit":
         command = input("\033[1;37mInput: ")
         if command == "help":
-            print("[cli, modules, help, version]")
-            print("[system, users, network, filesystem, packet]")
-            print("[docker, baschrc]")
+            help()
         if command == "modules":
             show_modules()
 
